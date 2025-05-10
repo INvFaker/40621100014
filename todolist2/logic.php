@@ -1,27 +1,37 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['todos'])) {
-    $_SESSION['todos'] = [];
+// cek dan inisiasi array tasks
+if (!isset($_SESSION['tasks'])) {
+    $_SESSION['tasks'] = [];
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['todo'])) {
-    $todoText = trim($_POST['todo']);
-    if ($todoText !== '') {
-        $_SESSION['todos'][] = ['text' => $todoText, 'done' => false];
-    }
-}
-
+// perubahan status
 if (isset($_GET['toggle'])) {
     $index = $_GET['toggle'];
-    if (isset($_SESSION['todos'][$index])) {
-        $_SESSION['todos'][$index]['done'] = !$_SESSION['todos'][$index]['done'];
+    if (isset($_SESSION['tasks'][$index])) {
+        $_SESSION['tasks'][$index]['status'] = !$_SESSION['tasks'][$index]['status'];
     }
+    header("Location: index.php");
+    exit;
 }
 
+// hapus task
 if (isset($_GET['delete'])) {
     $index = $_GET['delete'];
-    if (isset($_SESSION['todos'][$index])) {
-        array_splice($_SESSION['todos'], $index, 1);
+    if (isset($_SESSION['tasks'][$index])) {
+        array_splice($_SESSION['tasks'], $index, 1);
     }
+    header("Location: index.php");
+    exit;
+}
+
+// tambah task
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['task'])) {
+    $taskText = trim($_POST['task']);
+    if ($taskText !== '') {
+        $_SESSION['tasks'][] = ['text' => $taskText, 'status' => false];
+    }
+    header("Location: index.php");
+    exit;
 }

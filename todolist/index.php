@@ -20,13 +20,9 @@
             function tampilkanDaftar($tasks)
             {
                 foreach ($tasks as $task) {
-                    foreach ($task as $key => $val) {
-                        if ($key == "title") {
-                            echo "<li>$val</li>";
-                        }
-                    }
-                    echo "<br>";
+                    echo "<li>{$task['title']} - Status: {$task['status']}</li>";
                 }
+                echo "<br>";
             }
             ?>
 

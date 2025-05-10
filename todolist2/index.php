@@ -16,22 +16,27 @@ include 'logic.php'
         <h2 class="mb-4">To-Do List</h2>
 
         <form method="post" class="input-group mb-3">
-            <input type="text" name="todo" class="form-control" placeholder="Tambahkan todo baru">
+            <input type="text" name="task" class="form-control" placeholder="Tambahkan tugas baru">
             <button class="btn btn-primary" type="submit">Tambah</button>
         </form>
 
-        <ul class="list-group" id="todoList">
-            <?php foreach ($_SESSION['todos'] as $i => $todo): ?>
+        <ul class="list-group" id="taskList">
+            <?php foreach ($_SESSION['tasks'] as $i => $task): ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="form-check">
                         <input class="form-check-input me-2" type="checkbox"
                             onchange="window.location='?toggle=<?= $i ?>'"
-                            <?= $todo['done'] ? 'checked' : '' ?>>
-                        <span style="<?= $todo['done'] ? 'text-decoration: line-through;' : '' ?>">
-                            <?= htmlspecialchars($todo['text']) ?>
+                            <?= $task['status'] ? 'checked' : '' ?>>
+                        <span style="<?= $task['status'] ? 'text-decoration: line-through;' : '' ?>">
+                            <?= htmlspecialchars($task['text']) ?>
                         </span>
                     </div>
-                    <a href="?delete=<?= $i ?>" class="btn btn-danger btn-sm">Hapus</a>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-<?= $task['status'] ? 'success' : 'secondary' ?>">
+                            <?= $task['status'] ? 'Selesai' : 'Belum Selesai' ?>
+                        </span>
+                        <a href="?delete=<?= $i ?>" class="btn btn-danger btn-sm">Hapus</a>
+                    </div>
                 </li>
             <?php endforeach; ?>
         </ul>
