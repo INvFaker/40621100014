@@ -28,7 +28,7 @@ include 'logic.php'
                             onchange="window.location='?toggle=<?= $i ?>'"
                             <?= $task['status'] ? 'checked' : '' ?>>
                         <span style="<?= $task['status'] ? 'text-decoration: line-through;' : '' ?>">
-                            <?= htmlspecialchars($task['text']) ?>
+                            <?= ($task['text']) ?>
                         </span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
